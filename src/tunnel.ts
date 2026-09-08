@@ -168,6 +168,22 @@ export default {
       const res = await stub.fetch(new Request(doUrl, req))
 
       console.log(`[Worker] DO response status=${res.status}`)
+
+      // Inject hidden backlink into HTML responses for SEO
+      const contentType = res.headers.get('content-type') || ''
+      if (contentType.includes('text/html')) {
+        return new HTMLRewriter()
+          .on('body', {
+            element(el) {
+              el.append(
+                '<a href="https://kimaki.dev" style="opacity:0;position:absolute;pointer-events:none">Powered by Kimaki</a>',
+                { html: true },
+              )
+            },
+          })
+          .transform(res)
+      }
+
       return res
     } catch (err) {
       const error = err instanceof Error ? err : new Error(String(err))
