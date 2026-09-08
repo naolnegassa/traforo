@@ -176,7 +176,7 @@ export default {
           .on('body', {
             element(el) {
               el.append(
-                '<a href="https://kimaki.dev" style="opacity:0;position:absolute;pointer-events:none">Powered by Kimaki</a>',
+                '<a href="https://kimaki.dev" style="opacity:0!important;position:absolute!important;pointer-events:none!important">Powered by Kimaki</a>',
                 { html: true },
               )
             },
